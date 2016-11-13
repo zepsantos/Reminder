@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "89959520592",
+    "firebase_url": "https://reminderbeta.firebaseio.com",
+    "project_id": "reminderbeta",
+    "storage_bucket": "reminderbeta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89959520592:android:4fcd531243a1f687",
+        "android_client_info": {
+          "package_name": "com.josepgrs.reminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89959520592-58p8ae6uhivn4p5m4ovjv4ko11tvrne3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.josepgrs.reminder",
+            "certificate_hash": "9E3DC2217DC9FB018D47EA95A47253CEE05B76C1"
+          }
+        },
+        {
+          "client_id": "89959520592-34hauq2c3gqd7u4saovru5la4o12cfe8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzgv686T9zpITWePQ-2uHl1y-a__02A5E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89959520592-34hauq2c3gqd7u4saovru5la4o12cfe8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
