@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="PreferenceScreen">
+    <PreferenceCategory android:title="@string/AccountManagement">
+        <Preference
+            android:key="Name"
+            android:title="Your Name" />
+        <Preference
+            android:key="Username"
+            android:title="Username" />
+        <Preference
+            android:key="Email"
+            android:title="Your Email" />
+        <Preference
+            android:key="ChangePassword"
+            android:title="Change Password" />
+        <Preference
+            android:key="LogOut"
+            android:title="Log Out" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/GroupSchool">
+        <Preference
+            android:key="Group"
+            android:title="Group Management" />
+        <Preference
+            android:key="@string/Subjects"
+            android:title="@string/Subjects" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/NotificationManagement">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="Notification"
+            android:title="@string/NotificationManagement" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

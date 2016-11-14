@@ -3,4 +3,20 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="material_green_50">#E8F5E9</color>
+    <color name="material_green_500">#4CAF50</color>
+    <color name="material_green_700">#388E3C</color>
+    <color name="material_green_a200">#69F0AE</color>
+    <color name="material_lime_a700">#AEEA00</color>
+    <color name="material_purple_a700">#AA00FF</color>
+
+
+    <color name="material_deep_teal_100">#ffb2dfdb</color>
+    <color name="material_deep_teal_400">#ff80cbc4</color>
+    <color name="material_deep_teal_300">#ff4db6ac</color>
+    <color name="material_deep_teal_600">#ff009688</color>
+
+    <color name="material_blue_grey_100">#ff37474f</color>
+    <color name="material_blue_grey_200">#ff263238</color>
+    <color name="material_blue_grey_300">#ff21272b</color>
 </resources>

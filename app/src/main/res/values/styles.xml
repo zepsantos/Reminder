@@ -5,7 +5,19 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="LoginTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="colorPrimary">@color/material_blue_grey_100</item>
+        <item name="android:windowBackground">@color/material_blue_grey_100</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="GreenTheme" parent="FirebaseUI">
+        <item name="colorPrimary">@color/tw__solid_white</item>
+        <item name="colorPrimaryDark">@color/material_blue_grey_300</item>
+        <item name="colorAccent">@color/material_deep_teal_600</item>
+        <item name="colorControlNormal">@color/material_blue_grey_100</item>
+        <item name="colorControlActivated">@color/material_deep_teal_300</item>
+        <item name="colorControlHighlight">@color/material_deep_teal_400</item>
+        <item name="android:windowBackground">@color/material_deep_teal_100</item>
     </style>
 
 </resources>

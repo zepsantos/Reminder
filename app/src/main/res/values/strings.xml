@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">Reminder</string>
-    <string name="facebook_app_id">200568677057550</string>
+    <string name="facebook_application_id" translatable="false">200568677057550</string>
+    <string name="facebook_app_id" translatable="false">200568677057550</string>
+
+    <string name="AlrAcc">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="Subjects">Subjects</string>
+    <string name="AccountManagement">Account</string>
+    <string name="GroupManagement">Group</string>
+    <string name="NotificationManagement">Notifications</string>
+    <string name="InviteFriends">Invite Friends</string>
+    <string name="logOut">Log Out</string>
+    <string name="LogOutMessage">Are you sure you want to Log Out?</string>
+    <string name="ChangePassMessage">Are you sure you want to change the password?</string>
+    <string name="changePassword">Change Password</string>
+    <string name="change">Change</string>
+    <string name="current_group">Current Group:</string>
+    <string name="current_groups">Current Groups:</string>
+    <string name="ClicktoCreateGroup">Click To Create a New Group</string>
+    <string name="LeaveGroup">Are you sure you want to leave the Group?</string>
+    <string name="GroupSchool">Group &amp; School</string>
+    <string name="InviteGroup">Invites Available</string>
+    <string name="memberslist">Members List</string>
 </resources>
