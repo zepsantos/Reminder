@@ -9,7 +9,7 @@
     <color name="material_green_a200">#69F0AE</color>
     <color name="material_lime_a700">#AEEA00</color>
     <color name="material_purple_a700">#AA00FF</color>
-
+    <color name="material_color_green">#009688</color>
 
     <color name="material_deep_teal_100">#ffb2dfdb</color>
     <color name="material_deep_teal_400">#ff80cbc4</color>

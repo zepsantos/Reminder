@@ -12,13 +12,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.josepgrs.reminder.NewsAdapter.RECENT;
+import static com.josepgrs.reminder.NewsAdapter.SET;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewsView extends android.app.Fragment {
 
-
+    List<NewsInfo> result = new ArrayList<>();
+    private int viewtypes[] = {SET, RECENT, SET};
     public NewsView() {
         // Required empty public constructor
     }
@@ -39,22 +43,17 @@ public class NewsView extends android.app.Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        NewsAdapter ca = new NewsAdapter(createList(2));
+        NewsAdapter ca = new NewsAdapter(result, viewtypes);
         recList.setAdapter(ca);
+
+        NewsInfo newsInfo = new NewsInfo();
+        newsInfo.setInfo("You haven't set your username,yet. Please take a time to do it");
+        result.add(newsInfo);
+
+        ca.notifyDataSetChanged();
     }
 
-    private List<NewsInfo> createList(int size) {
 
-        List<NewsInfo> result = new ArrayList<NewsInfo>();
-        for (int i = 1; i <= size; i++) {
-            NewsInfo ci = new NewsInfo();
-            ci.InfoContext = "TESTE CONTEXT " + i;
-            ci.Info = "TESTE INFO" + i;
-            result.add(ci);
 
-        }
-
-        return result;
-    }
 }
 

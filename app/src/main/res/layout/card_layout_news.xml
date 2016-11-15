@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,10 +14,10 @@
         <TextView
             android:id="@+id/InfoContext"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="Context:"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="50sp" />
 
         <TextView
