@@ -21,5 +21,10 @@ public class NewsInfo {
         this.Info = Info;
     }
 
+    public void delInfo() {
+
+        this.Info = null;
+    }
+
 
 }

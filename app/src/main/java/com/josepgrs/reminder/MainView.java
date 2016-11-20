@@ -2,6 +2,7 @@ package com.josepgrs.reminder;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -10,10 +11,13 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainView extends Activity {
+    public static String uid;
+    FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth mAuth;
     private BottomBar mBottomBar;
 
@@ -23,8 +27,23 @@ public class MainView extends Activity {
         setContentView(R.layout.activity_main_view);
         mAuth = FirebaseAuth.getInstance();
         BottomBarFunctions();
+        AuthState();
+    }
 
-
+    private void AuthState() {
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    uid = user.getUid();
+                } else {
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), InitApp.class));
+                }
+            }
+        };
+        mAuth.addAuthStateListener(authListener);
     }
 
     private void BottomBarFunctions() {
@@ -72,5 +91,6 @@ public class MainView extends Activity {
                     }
                 });
     }
+
 
 }

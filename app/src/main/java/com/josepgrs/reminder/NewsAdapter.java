@@ -8,16 +8,22 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public static final int SET = 0;
     public static final int RECENT = 1;
     private List<NewsInfo> newsList;
-    private int[] mDataSetTypes;
+    private ArrayList<Integer> mDataSetTypes;
 
-    public NewsAdapter(List<NewsInfo> newsList, int[] mDataSetTypes) {
+    public NewsAdapter(List<NewsInfo> newsList, ArrayList<Integer> mDataSetTypes) {
         this.newsList = newsList;
         this.mDataSetTypes = mDataSetTypes;
     }
@@ -46,9 +52,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         if (viewHolder.getItemViewType() == SET) {
-            SetViewHolder holder = (SetViewHolder) viewHolder;
+            final SetViewHolder holder = (SetViewHolder) viewHolder;
             NewsInfo newsInfo = newsList.get(position);
             holder.SetContext.setText(newsInfo.getInfo());
+            holder.SetButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updateUserName(holder.SetEditText.getText().toString(), newsList.get(position));
+                }
+            });
         } else if (viewHolder.getItemViewType() == RECENT) {
             NewsViewHolder holder = (NewsViewHolder) viewHolder;
             NewsInfo newsInfo = newsList.get(position);
@@ -59,9 +71,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     }
 
+    private void updateUserName(String username, final NewsInfo teste) {
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> map = new HashMap<>();
+        map.put("/users/" + MainView.uid + "/username", username);
+        map.put("/username/" + username, MainView.uid);
+        mDatabase.updateChildren(map);
+    }
+
     @Override
     public int getItemViewType(int position) {
-        return mDataSetTypes[position];
+        return mDataSetTypes.get(position);
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -88,12 +110,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         protected TextView SetContext;
         protected EditText SetEditText;
-
+        protected TextView SetButton;
 
         public SetViewHolder(View v) {
             super(v);
             SetContext = (TextView) v.findViewById(R.id.SetContext);
             SetEditText = (EditText) v.findViewById(R.id.SetEditText);
+            SetButton = (TextView) v.findViewById(R.id.setButton);
         }
     }
 }

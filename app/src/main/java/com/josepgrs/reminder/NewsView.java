@@ -9,10 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.josepgrs.reminder.NewsAdapter.RECENT;
 import static com.josepgrs.reminder.NewsAdapter.SET;
 
 
@@ -22,7 +28,10 @@ import static com.josepgrs.reminder.NewsAdapter.SET;
 public class NewsView extends android.app.Fragment {
 
     List<NewsInfo> result = new ArrayList<>();
-    private int viewtypes[] = {SET, RECENT, SET};
+    NewsAdapter cardviewadapter;
+    private ArrayList<Integer> viewtypes = new ArrayList<>();
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     public NewsView() {
         // Required empty public constructor
     }
@@ -38,19 +47,49 @@ public class NewsView extends android.app.Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        CardViewInit(view);
+        CheckUserName();
+    }
+
+    private void CheckUserName() {
+        DatabaseReference username = mDatabase.child("/users/").child(mAuth.getCurrentUser().getUid()).child("username");
+        username.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                NewsInfo newsInfo = new NewsInfo();
+                if (dataSnapshot.getValue(String.class) == null) {
+                    viewtypes.add(SET);
+
+                    newsInfo.setInfo("Please take a time and set your username.");
+                    result.add(newsInfo);
+                    cardviewadapter.notifyDataSetChanged();
+                } else {
+                    result.remove(newsInfo);
+                    cardviewadapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void CardViewInit(View view) {
         RecyclerView recList = (RecyclerView) view.findViewById(R.id.cardList);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        NewsAdapter ca = new NewsAdapter(result, viewtypes);
-        recList.setAdapter(ca);
+        cardviewadapter = new NewsAdapter(result, viewtypes);
+        recList.setAdapter(cardviewadapter);
 
-        NewsInfo newsInfo = new NewsInfo();
-        newsInfo.setInfo("You haven't set your username,yet. Please take a time to do it");
-        result.add(newsInfo);
 
-        ca.notifyDataSetChanged();
     }
 
 
