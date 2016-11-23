@@ -5,7 +5,7 @@
     android:id="@+id/activity_main_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.josepgrs.reminder.MainView">
+    tools:context="com.josepgrs.reminder.Init.MainView">
 
     <FrameLayout
         android:id="@+id/mainContent"

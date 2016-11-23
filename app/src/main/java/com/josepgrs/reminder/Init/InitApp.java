@@ -1,4 +1,4 @@
-package com.josepgrs.reminder;
+package com.josepgrs.reminder.Init;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import com.firebase.ui.auth.ui.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.josepgrs.reminder.R;
 
 import java.util.Arrays;
 import java.util.HashMap;

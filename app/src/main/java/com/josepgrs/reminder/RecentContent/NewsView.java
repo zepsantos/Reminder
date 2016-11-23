@@ -1,4 +1,4 @@
-package com.josepgrs.reminder;
+package com.josepgrs.reminder.RecentContent;
 
 
 import android.os.Bundle;
@@ -15,11 +15,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.josepgrs.reminder.Adapters.NewsAdapter;
+import com.josepgrs.reminder.Model.NewsInfo;
+import com.josepgrs.reminder.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.josepgrs.reminder.NewsAdapter.SET;
+import static com.josepgrs.reminder.Adapters.NewsAdapter.SET;
 
 
 /**
@@ -32,6 +35,8 @@ public class NewsView extends android.app.Fragment {
     private ArrayList<Integer> viewtypes = new ArrayList<>();
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    public static Boolean usernameError = false;
+    Boolean firstTimeuser = true;
     public NewsView() {
         // Required empty public constructor
     }
@@ -51,23 +56,29 @@ public class NewsView extends android.app.Fragment {
         mAuth = FirebaseAuth.getInstance();
         CardViewInit(view);
         CheckUserName();
+
     }
 
     private void CheckUserName() {
-        DatabaseReference username = mDatabase.child("/users/").child(mAuth.getCurrentUser().getUid()).child("username");
+        final DatabaseReference username = mDatabase.child("/users/").child(mAuth.getCurrentUser().getUid()).child("username");
         username.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                NewsInfo newsInfo = new NewsInfo();
-                if (dataSnapshot.getValue(String.class) == null) {
-                    viewtypes.add(SET);
 
-                    newsInfo.setInfo("Please take a time and set your username.");
-                    result.add(newsInfo);
-                    cardviewadapter.notifyDataSetChanged();
+                NewsInfo newsInfo = new NewsInfo();
+
+                if (dataSnapshot.getValue(String.class) == null) {
+                    if (firstTimeuser) {
+                        viewtypes.add(SET);
+
+                        newsInfo.setInfo("Please take a time and set your username.");
+                        result.add(newsInfo);
+                        cardviewadapter.notifyDataSetChanged();
+                        firstTimeuser = false;
+                    }
+
                 } else {
-                    result.remove(newsInfo);
-                    cardviewadapter.notifyDataSetChanged();
+                    //USERNAME
 
                 }
             }
@@ -91,7 +102,6 @@ public class NewsView extends android.app.Fragment {
 
 
     }
-
 
 
 }

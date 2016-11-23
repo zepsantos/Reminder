@@ -1,4 +1,4 @@
-package com.josepgrs.reminder;
+package com.josepgrs.reminder.Init;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -12,6 +12,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.josepgrs.reminder.Calendar.CalendarFragmentView;
+import com.josepgrs.reminder.GetUserInformation;
+import com.josepgrs.reminder.R;
+import com.josepgrs.reminder.RecentContent.NewsView;
+import com.josepgrs.reminder.School.SchoolView;
+import com.josepgrs.reminder.Settings.Settings;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -20,7 +26,7 @@ public class MainView extends Activity {
     FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth mAuth;
     private BottomBar mBottomBar;
-
+    GetUserInformation userInformation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

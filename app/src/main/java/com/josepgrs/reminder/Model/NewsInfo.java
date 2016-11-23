@@ -1,4 +1,4 @@
-package com.josepgrs.reminder;
+package com.josepgrs.reminder.Model;
 
 
 

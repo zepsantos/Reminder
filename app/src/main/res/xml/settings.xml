@@ -6,7 +6,7 @@
             android:key="Name"
             android:title="Your Name" />
         <Preference
-            android:key="Username"
+            android:key="UserName"
             android:title="Username" />
         <Preference
             android:key="Email"

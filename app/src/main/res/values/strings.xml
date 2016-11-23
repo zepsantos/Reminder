@@ -22,4 +22,6 @@
     <string name="GroupSchool">Group &amp; School</string>
     <string name="InviteGroup">Invites Available</string>
     <string name="memberslist">Members List</string>
+    <string name="userNameAlreadyUse">Username is already in use</string>
+    <string name="userNameSet">UserName set sucessfuly</string>
 </resources>
