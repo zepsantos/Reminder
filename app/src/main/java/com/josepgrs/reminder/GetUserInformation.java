@@ -1,7 +1,5 @@
 package com.josepgrs.reminder;
 
-import android.app.Application;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,71 +11,121 @@ import com.google.firebase.database.ValueEventListener;
  * Created by josep on 21/11/2016.
  */
 
-public class GetUserInformation extends Application {
+public class GetUserInformation {
+    static String name;
+    static String userGroup;
+    static String email;
+    static String userName;
+    static String userUid;
+    private static GetUserInformation instance = new GetUserInformation();
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    String Name;
-    String UserGroup;
-    String Email;
-    String UserName;
-    String UserUid;
+    ValueEventListener dbname;
+    ValueEventListener dbuserName;
+    ValueEventListener dbuserGroup;
+
+    // Getter-Setters
+    public static GetUserInformation getInstance() {
+        return instance;
+    }
 
     public void Init() {
+
         mAuth = FirebaseAuth.getInstance();
-        UserUid = mAuth.getCurrentUser().getUid();
+        userUid = mAuth.getCurrentUser().getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        email = mAuth.getCurrentUser().getEmail();
+        dbValueListener();
         getAccountDetails();
     }
 
     private void getAccountDetails() {
         DatabaseReference NameChild;
-        NameChild = mDatabase.child("users").child(UserUid).child("name");
-        Name = getValue(NameChild);
+        NameChild = mDatabase.child("users").child(userUid).child("name");
+        NameChild.addValueEventListener(dbname);
+        DatabaseReference userNameChild;
+        NameChild = mDatabase.child("users").child(userUid).child("username");
+        NameChild.addValueEventListener(dbuserName);
+        DatabaseReference userGroupChild;
+        NameChild = mDatabase.child("users").child(userUid).child("group");
+        NameChild.addValueEventListener(dbuserGroup);
+
 
     }
 
-    public String getName() {
-        if (Name != null) {
-            return Name;
-        }
-        return null;
-    }
-
-    public String getUserGroup() {
-        if (UserGroup != null) {
-            return UserGroup;
-        }
-        return null;
-    }
-
-    public String getEmail() {
-        if (Email != null) {
-            return Email;
-        }
-        return null;
-    }
-
-    public String getUserName() {
-        if (UserName != null) {
-            return UserName;
-        }
-        return null;
-    }
-
-    public String getValue(DatabaseReference databaseReference) {
-        final String[] value = {null};
-        databaseReference.addValueEventListener(new ValueEventListener() {
+    private void dbValueListener() {
+        dbname = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                value[0] = dataSnapshot.getValue(String.class);
-
+                name = dataSnapshot.getValue(String.class);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
-        return value[0];
+        };
+
+        dbuserGroup = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userGroup = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        dbuserName = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userName = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
     }
+
+    public String getName() {
+        if (name != null) {
+            return name;
+        }
+        return null;
+    }
+
+    public String getUserGroup() {
+        if (userGroup != null) {
+            return userGroup;
+        }
+        return null;
+    }
+
+    public String getEmai() {
+        if (email != null) {
+            return email;
+        }
+        return null;
+    }
+
+    public String getUserName() {
+        if (userName != null) {
+            return userName;
+        }
+        return null;
+    }
+
+    public String getUserUid() {
+        if (userUid != null) {
+            return userUid;
+        }
+        return null;
+    }
+
+
 }

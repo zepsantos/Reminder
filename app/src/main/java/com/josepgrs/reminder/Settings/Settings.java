@@ -1,6 +1,7 @@
 package com.josepgrs.reminder.Settings;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.josepgrs.reminder.GetUserInformation;
 import com.josepgrs.reminder.Init.InitApp;
 import com.josepgrs.reminder.R;
 
@@ -29,6 +31,8 @@ import com.josepgrs.reminder.R;
  */
 
 public class Settings extends PreferenceFragment {
+    static Context mContext;
+    GetUserInformation userInformation;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private Preference Name;
@@ -37,7 +41,6 @@ public class Settings extends PreferenceFragment {
     private Preference LogOut;
     private Preference Changepassword;
     private Preference UserName;
-    private String mName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class Settings extends PreferenceFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        mContext = view.getContext();
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -63,40 +67,84 @@ public class Settings extends PreferenceFragment {
         Changepassword = getPreferenceManager().findPreference("ChangePassword");
         onClickListeners();
         PasswordDialog();
-
+        userInformation = new GetUserInformation().getInstance();
+        PreferencesText();
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    private void PreferencesText() {
+        Name.setSummary(userInformation.getName());
+        Email.setSummary(userInformation.getEmai());
+        if (userInformation.getUserGroup() != null) {
+            Group.setSummary(userInformation.getUserGroup());
+        } else {
+            Group.setSummary("");
+        }
+        if (userInformation.getUserName() != null) {
+            UserName.setSummary(userInformation.getUserName());
+        } else {
+            //USERNAME NOT CONFIGURED POR DEFINIR O QUE ACONTECE
+        }
     }
 
     private void onClickListeners() {
         LogOut.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                LogOutFunction();
+                LogOutDialog();
+
                 return false;
             }
         });
         Group.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.mainContent, new GroupManagement())
+                        .addToBackStack(null)
+                        .commit();
                 return false;
             }
         });
+    }
+
+    private void LogOutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(R.string.LogOutMessage);
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                LogOutFunction();
+            }
+
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+
+            }
+        });
+
+        builder.show();
     }
 
     private void PasswordDialog() {
         Changepassword.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle("Change Password:");
                 final EditText input = new EditText(getActivity().getApplicationContext());
-                input.layout(50, 10, 50, 10);
+                //input.layout(50, 10, 50, 10);
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 builder.setView(input);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         builder.setTitle(R.string.ChangePassMessage);
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
@@ -129,7 +177,7 @@ public class Settings extends PreferenceFragment {
                 return false;
             }
         });
-    }
+    }  // IF PROVIDER FACEBOOK || GMAIL PASSWORD CANT BE CHANGED
 
     private void ChangePasswordFunction(EditText pass) {
         mAuth = FirebaseAuth.getInstance();

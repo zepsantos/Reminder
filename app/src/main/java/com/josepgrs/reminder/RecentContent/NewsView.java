@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.josepgrs.reminder.Adapters.NewsAdapter;
+import com.josepgrs.reminder.GetUserInformation;
 import com.josepgrs.reminder.Model.NewsInfo;
 import com.josepgrs.reminder.R;
 
@@ -30,13 +31,13 @@ import static com.josepgrs.reminder.Adapters.NewsAdapter.SET;
  */
 public class NewsView extends android.app.Fragment {
 
+    public static Boolean usernameError = false;
     List<NewsInfo> result = new ArrayList<>();
     NewsAdapter cardviewadapter;
+    Boolean firstTimeuser = true;
     private ArrayList<Integer> viewtypes = new ArrayList<>();
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    public static Boolean usernameError = false;
-    Boolean firstTimeuser = true;
     public NewsView() {
         // Required empty public constructor
     }
@@ -56,6 +57,8 @@ public class NewsView extends android.app.Fragment {
         mAuth = FirebaseAuth.getInstance();
         CardViewInit(view);
         CheckUserName();
+        GetUserInformation userInformation = new GetUserInformation().getInstance();
+        userInformation.Init();
 
     }
 

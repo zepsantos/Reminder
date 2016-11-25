@@ -13,7 +13,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.josepgrs.reminder.Calendar.CalendarFragmentView;
-import com.josepgrs.reminder.GetUserInformation;
 import com.josepgrs.reminder.R;
 import com.josepgrs.reminder.RecentContent.NewsView;
 import com.josepgrs.reminder.School.SchoolView;
@@ -26,7 +25,8 @@ public class MainView extends Activity {
     FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth mAuth;
     private BottomBar mBottomBar;
-    GetUserInformation userInformation;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
