@@ -182,6 +182,7 @@ public class GroupManagement extends PreferenceFragment {
 
 
     private void InvitesFragment() {
+
     }
 
     private void LeaveGroupFunction() {
@@ -226,6 +227,7 @@ public class GroupManagement extends PreferenceFragment {
 
 
     private void MembersListFragment() {
+
     }
 
 
