@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class GroupManagement extends PreferenceFragment {
     private Preference group;
     private Preference invmemb; //ALSO IT IS A BUTTON FOR MEMBERS LIST
     private Preference leaveGroup;
+    private PreferenceScreen preferenceScreen;
     private String userGroup;
     private Context mContext;
 
@@ -60,6 +62,7 @@ public class GroupManagement extends PreferenceFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         userInformation = new GetUserInformation().getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        preferenceScreen = getPreferenceScreen();
         mAuth = FirebaseAuth.getInstance();
         group = getPreferenceManager().findPreference("group");
         leaveGroup = getPreferenceManager().findPreference("leavegroup");
@@ -88,7 +91,7 @@ public class GroupManagement extends PreferenceFragment {
     }
 
     private void CreateGroup() {
-        leaveGroup.setEnabled(false); //EM CASO DE NAO TER GRUPO NAO DAR PARA DAR LEAVE
+        preferenceScreen.removePreference(leaveGroup); //EM CASO DE NAO TER GRUPO NAO DAR PARA DAR LEAVE
         group.setSummary(R.string.ClicktoCreateGroup); //SUMARY PARA STRING CRIAR NOVO GRUPO
         group.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(final Preference preference) {
@@ -182,12 +185,25 @@ public class GroupManagement extends PreferenceFragment {
 
 
     private void InvitesFragment() {
+        invmemb.setOnPreferenceClickListener(null);
+        invmemb.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.mainContent, new InvitesView())
+                        .addToBackStack(null)
+                        .commit();
+                return false;
+            }
+        });
+
+
 
     }
 
     private void LeaveGroupFunction() {
 
-        leaveGroup.setEnabled(true);
+        preferenceScreen.addPreference(leaveGroup);
         leaveGroup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -203,7 +219,7 @@ public class GroupManagement extends PreferenceFragment {
                             userGroup.removeValue(new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                    leaveGroup.setEnabled(false);
+                                    preferenceScreen.removePreference(leaveGroup);
                                     CreateGroup();
                                     groupRefresh();
                                 }
@@ -227,7 +243,17 @@ public class GroupManagement extends PreferenceFragment {
 
 
     private void MembersListFragment() {
-
+        invmemb.setOnPreferenceClickListener(null);
+        invmemb.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.mainContent, new MembersView())
+                        .addToBackStack(null)
+                        .commit();
+                return false;
+            }
+        });
     }
 
 

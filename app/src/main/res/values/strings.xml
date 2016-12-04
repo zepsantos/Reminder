@@ -24,4 +24,7 @@
     <string name="memberslist">Members List</string>
     <string name="userNameAlreadyUse">Username is already in use</string>
     <string name="userNameSet">UserName set sucessfuly</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
