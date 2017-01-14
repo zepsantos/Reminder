@@ -7,9 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * Created by josep on 21/11/2016.
- */
+
 
 public class GetUserInformation {
     static String name;
@@ -44,11 +42,11 @@ public class GetUserInformation {
         NameChild = mDatabase.child("users").child(userUid).child("name");
         NameChild.addValueEventListener(dbname);
         DatabaseReference userNameChild;
-        NameChild = mDatabase.child("users").child(userUid).child("username");
-        NameChild.addValueEventListener(dbuserName);
+        userNameChild = mDatabase.child("users").child(userUid).child("username");
+        userNameChild.addValueEventListener(dbuserName);
         DatabaseReference userGroupChild;
-        NameChild = mDatabase.child("users").child(userUid).child("group");
-        NameChild.addValueEventListener(dbuserGroup);
+        userGroupChild = mDatabase.child("users").child(userUid).child("group");
+        userGroupChild.addValueEventListener(dbuserGroup);
 
 
     }

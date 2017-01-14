@@ -13,11 +13,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.josepgrs.reminder.Calendar.CalendarFragmentView;
+import com.josepgrs.reminder.GetUserInformation;
 import com.josepgrs.reminder.R;
 import com.josepgrs.reminder.RecentContent.NewsView;
 import com.josepgrs.reminder.School.SchoolView;
 import com.josepgrs.reminder.Settings.Settings;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainView extends Activity {
@@ -34,6 +36,12 @@ public class MainView extends Activity {
         mAuth = FirebaseAuth.getInstance();
         BottomBarFunctions();
         AuthState();
+    }
+
+    @Override
+    protected void onResume() {
+        GetUserInformation.getInstance();
+        super.onResume();
     }
 
     private void AuthState() {
@@ -79,6 +87,19 @@ public class MainView extends Activity {
                             .replace(R.id.mainContent, selectedFragment)
                             .addToBackStack(null)
                             .commit();
+                }
+            }
+        });
+        mBottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                switch (tabId) {
+                    case R.id.Settings:
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.mainContent, new Settings())
+                                .addToBackStack(null)
+                                .commit();
+                        break;
                 }
             }
         });

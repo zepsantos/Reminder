@@ -2,7 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="PreferenceScreen">
 
-    <PreferenceCategory android:title="Group Management">
+    <PreferenceCategory
+        android:key="groupmanagement"
+        android:title="Group Management">
         <Preference
             android:key="group"
             android:title="Group Name" />
@@ -10,7 +12,7 @@
             android:key="invmemb"
             android:title="@string/InviteGroup" />
         <Preference
-            android:enabled="false"
+            android:enabled="true"
             android:key="leavegroup"
             android:title="Leave Group" />
     </PreferenceCategory>
