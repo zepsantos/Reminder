@@ -65,8 +65,8 @@ public class MembersView extends android.app.Fragment {
         mAdapter = new FirebaseListAdapter<String>(getActivity(), String.class, android.R.layout.simple_list_item_1, groupMembers) {
             @Override
             protected void populateView(View v, String model, int position) {
-                TextView tv = (TextView) v.findViewById(android.R.id.text1);
-                tv.setText(model);
+                //TextView tv = (TextView) v.findViewById(android.R.id.text1);
+                //tv.setText(model);
             }
         };
         membersListView.setAdapter(mAdapter);

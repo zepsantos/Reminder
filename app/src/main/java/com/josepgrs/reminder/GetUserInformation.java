@@ -39,7 +39,7 @@ public class GetUserInformation {
 
     private void getAccountDetails() {
         DatabaseReference NameChild;
-        NameChild = mDatabase.child("users").child(userUid).child("name");
+        NameChild = mDatabase.child("users").child(userUid).child("Name");
         NameChild.addValueEventListener(dbname);
         DatabaseReference userNameChild;
         userNameChild = mDatabase.child("users").child(userUid).child("username");

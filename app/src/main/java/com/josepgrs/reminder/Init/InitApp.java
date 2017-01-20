@@ -54,7 +54,7 @@ public class InitApp extends Activity {
 		if (resultCode == RESULT_OK) {
 			FirebaseAuth auth = FirebaseAuth.getInstance();
 			Map<String, Object> userinfo = new HashMap<>();
-			userinfo.put("/users/" + auth.getCurrentUser().getUid() + "/name/", auth.getCurrentUser().getDisplayName());
+			userinfo.put("/users/" + auth.getCurrentUser().getUid() + "/Name/", auth.getCurrentUser().getDisplayName());
 			userinfo.put("/users/" + auth.getCurrentUser().getUid() + "/email/", auth.getCurrentUser().getEmail());
 			mDatabase.updateChildren(userinfo);
 			AlreadySignedIn();

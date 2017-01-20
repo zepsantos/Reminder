@@ -39,6 +39,7 @@ public class Settings extends PreferenceFragment {
     private Preference Email;
     private Preference Group;
     private Preference LogOut;
+    private Preference Subject;
     private Preference Changepassword;
     private Preference UserName;
 
@@ -64,6 +65,7 @@ public class Settings extends PreferenceFragment {
         Group = getPreferenceManager().findPreference("Group");
         LogOut = getPreferenceManager().findPreference("LogOut");
         UserName = getPreferenceManager().findPreference("UserName");
+        Subject = getPreferenceManager().findPreference("Subjects");
         Changepassword = getPreferenceManager().findPreference("ChangePassword");
         onClickListeners();
         PasswordDialog();
@@ -102,6 +104,17 @@ public class Settings extends PreferenceFragment {
 
                 getFragmentManager().beginTransaction()
                         .replace(R.id.mainContent, new GroupManagement())
+                        .addToBackStack(null)
+                        .commit();
+                return false;
+            }
+        });
+        Subject.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.mainContent, new SubjectsManagement())
                         .addToBackStack(null)
                         .commit();
                 return false;
