@@ -1,11 +1,15 @@
 package com.josepgrs.reminder.Settings;
 
 
+import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -49,13 +53,19 @@ public class SubjectsManagement extends android.app.Fragment {
 
 	private void initList() {
 		userSubject = mDatabase.child("userSubjects").child(userInfo.getUserUid());
-		mAdapter = new FirebaseListAdapter<Subject>(getActivity(), Subject.class, android.R.layout.simple_list_item_1, userSubject) {
+		mAdapter = new FirebaseListAdapter<Subject>(getActivity(), Subject.class, R.layout.subjectlist, userSubject) {
 
 
 			@Override
 			protected void populateView(View v, Subject model, int position) {
-				TextView tv = (TextView) v.findViewById(android.R.id.text1);
+				TextView tv = (TextView) v.findViewById(R.id.subjectsname);
 				tv.setText(model.Name);
+				ImageView subjcolor = (ImageView) v.findViewById(R.id.subjectscolor);
+				ShapeDrawable drawable = new ShapeDrawable(new OvalShape());
+				if (model.Color != null) {
+					drawable.getPaint().setColor(Color.parseColor(model.Color));
+					subjcolor.setBackground(drawable);
+				}
 
 			}
 

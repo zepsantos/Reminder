@@ -7,20 +7,16 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class Subject {
 
 	public String Name;
-
+	public String Color;
 
 	public Subject() {
 		// Default constructor required for calls to DataSnapshot.getValue(User.class)
 	}
 
-	public Subject(String name) {
-		this.Name = name;
-
-
+	public Subject(String Name, String Color) {
+		this.Name = Name;
+		this.Color = Color;
 	}
 
-	public String getName() {
-		return Name;
-	}
 
 }
