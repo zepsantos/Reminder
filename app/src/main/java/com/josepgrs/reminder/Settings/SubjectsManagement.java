@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.josepgrs.reminder.GetUserInformation;
@@ -48,7 +49,21 @@ public class SubjectsManagement extends android.app.Fragment {
 		userInfo = new GetUserInformation().getInstance();
 		mDatabase = FirebaseDatabase.getInstance().getReference();
 		initList();
+		AddSubject();
 		super.onViewCreated(view, savedInstanceState);
+	}
+
+	private void AddSubject() {
+		FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_addsubject);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				getFragmentManager().beginTransaction()
+						.replace(R.id.mainContent, new addSubject())
+						.addToBackStack(null)
+						.commit();
+			}
+		});
 	}
 
 	private void initList() {
