@@ -36,8 +36,8 @@ public class InitApp extends Activity {
 					AuthUI.getInstance()
 							.createSignInIntentBuilder()
 							.setTheme(R.style.LoginTheme)
-							.setLogo(R.drawable.logo_googleg_color_18dp)
-							.setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                            .setLogo(R.drawable.com_facebook_button_login_logo)
+                            .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
 									new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
 									new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
 							.build(),
