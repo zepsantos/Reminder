@@ -24,7 +24,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':colorpicker')
+
     compile 'com.google.firebase:firebase-database:10.2.0'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.google.firebase:firebase-auth:10.2.0'

@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.colorpicker.ColorPickerDialog;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -27,8 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.josepgrs.reminder.GetUserInformation;
 import com.josepgrs.reminder.Model.Subject;
 import com.josepgrs.reminder.R;
-
-import static android.R.attr.numColumns;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,10 +101,7 @@ public class SubjectsManagement extends android.app.Fragment {
                 subjcolor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-                        colorPickerDialog.initialize(
-                                R.string.GroupSchool, colors, selectedColor, numColumns, colors.length);
-                        colorPickerDialog.show(getFragmentManager(), "TAG");
+
                     }
                 });
 
